@@ -1,71 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:van_sales_app/widgets/custom_textfeild.dart';
+
 import '../../../../utils/custom_colors.dart';
 import '../../../../widgets/custom_app_bar.dart';
 import '../../../../widgets/custom_curved_button.dart';
 import '../../../../widgets/datepickertextfeild.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
+import 'previous_changes_controller.dart';
 
-import 'cash_register_report_controller.dart';
-
-class CashRegisterreportScreen extends StatefulWidget {
-  const CashRegisterreportScreen({super.key});
+class PreviousChangesScreens extends StatefulWidget {
+  const PreviousChangesScreens({super.key});
 
   @override
-  State<CashRegisterreportScreen> createState() =>
-      _CashRegisterreportScreenState();
+  State<PreviousChangesScreens> createState() => _PreviousChangesScreensState();
 }
 
-class _CashRegisterreportScreenState extends State<CashRegisterreportScreen> {
+class _PreviousChangesScreensState extends State<PreviousChangesScreens> {
+  final TextEditingController _controllerCustemorNmae = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TitleOnltyCustomAppBar(title: "Cash Register Report"),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                const DatePickerTextField(labelText: "From Date"),
-                const DatePickerTextField(labelText: "To Date"),
-                CustomCurvedButton(
-                    tittle: "Submit",
-                    onPressed: () {},
-                    buttonheight: 40,
-                    buttonwidth: MediaQuery.of(context).size.width * 1),
-                CustomCurvedButton(
-                    tittle: "PDF",
-                    onPressed: () {},
-                    buttonheight: 40,
-                    buttonwidth: MediaQuery.of(context).size.width * 1),
-              ],
+      appBar: const TitleOnltyCustomAppBar(title: "Previous Changes "),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  const DatePickerTextField(labelText: "From Date"),
+                  const DatePickerTextField(labelText: "To Date"),
+                  CustomTextField(
+                      controller: _controllerCustemorNmae,
+                      text: "Customer Name"),
+                  CustomCurvedButton(
+                      tittle: "Load",
+                      onPressed: () {},
+                      buttonheight: 40,
+                      buttonwidth: MediaQuery.of(context).size.width * 1),
+                ],
+              ),
             ),
-          ),
-          const CashRegisterReportTable(),
-        ],
+            const PreviousChangeListTable(),
+          ],
+        ),
       ),
     );
   }
 }
 
-class CashRegisterReportTable extends StatefulWidget {
-  const CashRegisterReportTable({super.key});
+class PreviousChangeListTable extends StatefulWidget {
+  const PreviousChangeListTable({super.key});
 
   @override
-  State<CashRegisterReportTable> createState() =>
-      _CashRegisterReportTableState();
+  State<PreviousChangeListTable> createState() =>
+      _PreviousChangeListTableState();
 }
 
-class _CashRegisterReportTableState extends State<CashRegisterReportTable> {
-  final CasharegisterReportController casharegisterReportController =
-      Get.put(CasharegisterReportController());
+class _PreviousChangeListTableState extends State<PreviousChangeListTable> {
+  final PreviousChangeListController previousChangeListController =
+      Get.put(PreviousChangeListController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * .6,
+      height: MediaQuery.of(context).size.height * .5,
       decoration:
           BoxDecoration(border: Border.all(width: 1, color: gridBorderColor)),
       margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -73,43 +75,14 @@ class _CashRegisterReportTableState extends State<CashRegisterReportTable> {
           data: SfDataGridThemeData(
               headerColor: gridHeaderColor, gridLineColor: gridBorderColor),
           child: Obx(() {
-            if (casharegisterReportController.isLoading.value) {
+            if (previousChangeListController.isLoading.value) {
               return const Text('Loading...');
             }
             return SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: tableHeaderbgColor),
               child: SfDataGrid(
-                source: ShopDataSource(casharegisterReportController
-                    .cashRegisterReportList), //_shopList,
-
-                tableSummaryRows: [
-                  GridTableSummaryRow(
-                      color: tableHeaderbgColor,
-                      showSummaryInRow: true,
-                      title: "Total :",
-                      columns: [
-                        const GridSummaryColumn(
-                            name: 'debit',
-                            columnName: 'debit',
-                            summaryType: GridSummaryType.sum),
-                        const GridSummaryColumn(
-                            name: 'de',
-                            columnName: 'credit',
-                            summaryType: GridSummaryType.sum)
-                      ],
-                      position: GridTableSummaryRowPosition.bottom),
-                  GridTableSummaryRow(
-                      color: tableHeaderbgColor,
-                      showSummaryInRow: true,
-                      title: "Balance :",
-                      columns: [
-                        const GridSummaryColumn(
-                            name: 'debit',
-                            columnName: 'debit',
-                            summaryType: GridSummaryType.sum),
-                      ],
-                      position: GridTableSummaryRowPosition.bottom)
-                ],
+                source: ShopDataSource(previousChangeListController
+                    .previousChangeList), //_shopList,
 
                 columns: [
                   GridColumn(
@@ -135,7 +108,7 @@ class _CashRegisterReportTableState extends State<CashRegisterReportTable> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Customer",
+                          "Date",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -146,12 +119,12 @@ class _CashRegisterReportTableState extends State<CashRegisterReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "particular",
+                      columnName: "clientcCode",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Particular ",
+                          "Client. Code",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -162,12 +135,12 @@ class _CashRegisterReportTableState extends State<CashRegisterReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "credit",
+                      columnName: "clientcName",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Credit",
+                          "Clientc Name ",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -178,12 +151,12 @@ class _CashRegisterReportTableState extends State<CashRegisterReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "debit",
+                      columnName: "no",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Debit",
+                          "Change No ",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -201,17 +174,19 @@ class _CashRegisterReportTableState extends State<CashRegisterReportTable> {
 }
 
 class ShopDataSource extends DataGridSource {
-  ShopDataSource(List<CashRegisterReportList> shops) {
+  ShopDataSource(List<PreviousChangeList> shops) {
     dataGridRows = shops
         .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
               DataGridCell<int>(columnName: "si_no", value: dataGridRow.siNo),
-              DataGridCell<String>(columnName: "date", value: dataGridRow.date),
+              DataGridCell<DateTime>(
+                  columnName: "date", value: dataGridRow.date),
               DataGridCell<String>(
-                  columnName: "particular", value: dataGridRow.particular),
-              DataGridCell<double>(
-                  columnName: "credit", value: dataGridRow.credit),
-              DataGridCell<double>(
-                  columnName: "debit", value: dataGridRow.debit),
+                  columnName: "clientcCode", value: dataGridRow.clientcCode),
+              DataGridCell<String>(
+                  columnName: "clientcName", value: dataGridRow.clientcName),
+              // DataGridCell<String>(
+              //     columnName: "location", value: dataGridRow.location),
+              DataGridCell<double>(columnName: "no", value: dataGridRow.no),
             ]))
         .toList();
   }
@@ -256,13 +231,18 @@ class ShopDataSource extends DataGridSource {
   }
 }
 
-class CashRegisterReportList {
+class PreviousChangeList {
   int? siNo;
-  String? date;
-  String? particular;
-  double? debit;
-  double? credit;
-
-  CashRegisterReportList(
-      {this.date, this.credit, this.debit, this.particular, this.siNo});
+  String? clientcCode;
+  String? clientcName;
+//String? location;
+  double? no;
+  DateTime? date;
+  PreviousChangeList(
+      { //this.location,
+      this.date,
+      this.clientcCode,
+      this.no,
+      this.clientcName,
+      this.siNo});
 }

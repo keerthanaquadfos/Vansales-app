@@ -1,78 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:van_sales_app/scr/dashboard_screen/new_order/new_order_screen/add_order/add_order_screen.dart';
-import 'package:van_sales_app/scr/dashboard_screen/new_order/new_order_screen/order_report/order_report_screen.dart';
-import 'package:van_sales_app/widgets/custom_app_bar.dart';
-import '../../../../utils/custom_colors.dart';
-import '../../../../widgets/custom_curved_button.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:van_sales_app/scr/dashboard_screen/change_list/previous_changes/previous_changes_screen.dart';
 
-import 'new_order_controller.dart';
+import '../../../../utils/custom_colors.dart';
+import '../../../../widgets/custom_app_bar.dart';
+import '../../../../widgets/custom_curved_button.dart';
+import 'change_list_controller.dart';
 
-class NewOrderScreen extends StatefulWidget {
-  const NewOrderScreen({super.key});
+class ChangrListScreen extends StatefulWidget {
+  const ChangrListScreen({super.key});
 
   @override
-  State<NewOrderScreen> createState() => _NewOrderScreenState();
+  State<ChangrListScreen> createState() => _ChangrListScreenState();
 }
 
-class _NewOrderScreenState extends State<NewOrderScreen> {
+class _ChangrListScreenState extends State<ChangrListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TitleOnltyCustomAppBar(title: "New Order"),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(children: [
-            CustomCurvedButton(
-              tittle: "Add New",
-              onPressed: () {
-                Get.to(const AddOrderScreen());
-              },
-              buttonheight: 40,
-              buttonwidth: MediaQuery.of(context).size.width * 1,
+      appBar: const TitleOnltyCustomAppBar(title: "Change List Report "),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  CustomCurvedButton(
+                      tittle: "Delete All",
+                      onPressed: () {},
+                      buttonheight: 40,
+                      buttonwidth: MediaQuery.of(context).size.width * 1),
+                  CustomCurvedButton(
+                      tittle: "Previous ",
+                      onPressed: () {
+                        Get.to(const PreviousChangesScreens());
+                      },
+                      buttonheight: 40,
+                      buttonwidth: MediaQuery.of(context).size.width * 1),
+                ],
+              ),
             ),
-            // CustomCurvedButton(
-            //   tittle: "Upload Now",
-            //   onPressed: () {
-            //     const NewOrderScreen();
-            //   },
-            //   buttonheight: 40,
-            //   buttonwidth: MediaQuery.of(context).size.width * 1,
-            // ),
-            CustomCurvedButton(
-              tittle: "Orde Report",
-              onPressed: () {
-                Get.to(const OrderReporScreen());
-              },
-              buttonheight: 40,
-              buttonwidth: MediaQuery.of(context).size.width * 1,
-            ),
-            const OrderTable()
-          ]),
+            const ChangeListTable(),
+          ],
         ),
       ),
     );
   }
 }
 
-class OrderTable extends StatefulWidget {
-  const OrderTable({super.key});
+class ChangeListTable extends StatefulWidget {
+  const ChangeListTable({super.key});
 
   @override
-  State<OrderTable> createState() => _OrderTableState();
+  State<ChangeListTable> createState() => _ChangeListTableState();
 }
 
-class _OrderTableState extends State<OrderTable> {
-  final NewOrderController addExpenseController = Get.put(NewOrderController());
+class _ChangeListTableState extends State<ChangeListTable> {
+  final ChangeListController changeListController =
+      Get.put(ChangeListController());
 
-  // List<OrderList> _shopList = [
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * .6,
+      height: MediaQuery.of(context).size.height * .5,
       decoration:
           BoxDecoration(border: Border.all(width: 1, color: gridBorderColor)),
       margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -80,74 +73,24 @@ class _OrderTableState extends State<OrderTable> {
           data: SfDataGridThemeData(
               headerColor: gridHeaderColor, gridLineColor: gridBorderColor),
           child: Obx(() {
-            if (!addExpenseController.isLoading.value) {
+            if (changeListController.isLoading.value) {
               return const Text('Loading...');
             }
             return SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: tableHeaderbgColor),
               child: SfDataGrid(
-                source:
-                    ShopDataSource(addExpenseController.orderList), //_shopList,
+                source: ShopDataSource(
+                    changeListController.changeList), //_shopList,
 
                 columns: [
                   GridColumn(
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    columnName: "siNo",
-                    label: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      alignment: Alignment.center,
-                      // ignore: prefer_const_constructors
-                      child: Text(
-                        "SI.No",
-                        overflow: TextOverflow.clip,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 10,
-                          color: tableHeadereColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "orderid",
-                      label: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "Order ID ",
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                            color: tableHeadereColor,
-                          ),
-                        ),
-                      )),
-                  GridColumn(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      columnName: "orderno",
-                      label: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "Order NO",
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                            color: tableHeadereColor,
-                          ),
-                        ),
-                      )),
-                  GridColumn(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "stocktype",
+                      columnName: "si_no",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.centerLeft,
                         child: const Text(
-                          "Stock Type",
+                          "    SI.NO .",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -158,12 +101,12 @@ class _OrderTableState extends State<OrderTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "shift",
+                      columnName: "clientcCode",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.center,
                         child: const Text(
-                          "Shift .",
+                          "Client. Code",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -173,13 +116,61 @@ class _OrderTableState extends State<OrderTable> {
                         ),
                       )),
                   GridColumn(
-                      width: MediaQuery.of(context).size.width * 0.15,
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      columnName: "clientcName",
+                      label: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "Clientc Name ",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color: tableHeadereColor,
+                          ),
+                        ),
+                      )),
+                  GridColumn(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      columnName: "location",
+                      label: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "Location",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color: tableHeadereColor,
+                          ),
+                        ),
+                      )),
+                  GridColumn(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      columnName: "no",
+                      label: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "No ",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color: tableHeadereColor,
+                          ),
+                        ),
+                      )),
+                  GridColumn(
+                      width: MediaQuery.of(context).size.width * 0.20,
                       columnName: "date",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.center,
                         child: const Text(
-                          "Date .",
+                          "Date",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -197,19 +188,19 @@ class _OrderTableState extends State<OrderTable> {
 }
 
 class ShopDataSource extends DataGridSource {
-  ShopDataSource(List<OrderList> shops) {
+  ShopDataSource(List<ChangeList> shops) {
     dataGridRows = shops
         .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: "siNO", value: dataGridRow.siNo),
+              DataGridCell<int>(columnName: "si_no", value: dataGridRow.siNo),
               DataGridCell<String>(
-                  columnName: "orderid", value: dataGridRow.orderid),
+                  columnName: "clientcCode", value: dataGridRow.clientcCode),
               DataGridCell<String>(
-                  columnName: "orderno", value: dataGridRow.orderno),
+                  columnName: "clientcName", value: dataGridRow.clientcName),
               DataGridCell<String>(
-                  columnName: "stocktype", value: dataGridRow.stocktype),
-              DataGridCell<String>(
-                  columnName: "shift", value: dataGridRow.shift),
-              DataGridCell<String>(columnName: "date", value: dataGridRow.date),
+                  columnName: "location", value: dataGridRow.location),
+              DataGridCell<double>(columnName: "no", value: dataGridRow.no),
+              DataGridCell<DateTime>(
+                  columnName: "date", value: dataGridRow.date),
             ]))
         .toList();
   }
@@ -217,6 +208,19 @@ class ShopDataSource extends DataGridSource {
   late List<DataGridRow> dataGridRows;
   @override
   List<DataGridRow> get rows => dataGridRows;
+
+  @override
+  Widget? buildTableSummaryCellWidget(
+      GridTableSummaryRow summaryRow,
+      GridSummaryColumn? summaryColumn,
+      RowColumnIndex rowColumnIndex,
+      String summaryValue) {
+    return Container(
+      padding: const EdgeInsets.all(15.0),
+      alignment: Alignment.center,
+      child: Text(summaryValue),
+    );
+  }
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
@@ -241,26 +245,18 @@ class ShopDataSource extends DataGridSource {
   }
 }
 
-class OrderList {
+class ChangeList {
   int? siNo;
-  String? orderid;
-  String? orderno;
-  String? stocktype;
-  String? shift;
-  String? date;
-
-  OrderList(
-      {this.siNo,
-      this.orderid,
-      this.orderno,
-      this.stocktype,
-      this.shift,
-      this.date});
-
-  // Vehicle.fromJson(Map<String, dynamic> json) {
-  //   blockFlat = parseString(json['block_flat']);
-  //   name = parseString(json['name']);
-  //   noOfVehicles = parseInt(json['no_of_vehicle']);
-  //   parkingSlot = parseString(json['parking_slot']);
-  //   vehcleNumber = parseString(json['vehicles_no']);
+  String? clientcCode;
+  String? clientcName;
+  String? location;
+  double? no;
+  DateTime? date;
+  ChangeList(
+      {this.location,
+      this.date,
+      this.clientcCode,
+      this.no,
+      this.clientcName,
+      this.siNo});
 }

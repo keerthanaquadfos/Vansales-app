@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:van_sales_app/scr/dashboard_screen/reports/customer_ledger_report/customer_ledger_report_screen.dart';
+import 'package:van_sales_app/scr/dashboard_screen/reports/sales_return_register/sales_return_register_screen.dart';
 import 'package:van_sales_app/widgets/custom_app_bar.dart';
 import '../../../utils/custom_colors.dart';
 import '../../../widgets/tile_container.dart';
@@ -7,6 +8,10 @@ import '../dashboard_screen.dart';
 import 'cash_egister_report/cash_register_report_screen.dart';
 import 'category_report/category_report_screen.dart';
 import 'customer_ledger_summary_report/ledger_summary_report_screen.dart';
+import 'expense_report/expense_report_screen.dart';
+import 'order_report/order_report_screen.dart';
+import 'sales_report/sales_report_screen.dart';
+import 'sales_summary_report/sales_summary_report_screen.dart';
 import 'stock_register_report/stock_register_report_screen.dart';
 
 class ReportsScreen extends StatefulWidget {
@@ -81,27 +86,27 @@ final List<TileGridModel> reporGridtlist = [
       id: 0,
       imagrUrl: "assets/images/schedules_Icons-09.png",
       title: "Order Report",
-      reportpage: const ReportsScreen()),
+      reportpage: const OrderReport()),
   TileGridModel(
       id: 1,
       imagrUrl: "assets/images/add_client_Icons-10.png",
       title: 'Sales Report',
-      reportpage: const ReportsScreen()),
+      reportpage: const SalesReportScreen()),
   TileGridModel(
       id: 2,
       imagrUrl: "assets/images/overdues_Icons-11.png",
       title: 'Sales Return register',
-      reportpage: const ReportsScreen()),
+      reportpage: const SalesReturnRegisterScreenState()),
   TileGridModel(
       id: 3,
       imagrUrl: "assets/images/product_Icons-12.png",
       title: 'Expenses \nReport',
-      reportpage: const ReportsScreen()),
+      reportpage: const ExpenseReportScreen()),
   TileGridModel(
       id: 4,
       imagrUrl: "assets/images/expenses_Icons-13.png",
       title: 'Sales Summary Report',
-      reportpage: const ReportsScreen()),
+      reportpage: const SalesSummaryReportScreen()),
   TileGridModel(
       id: 5,
       imagrUrl: "assets/images/incentives_Icons-14.png",

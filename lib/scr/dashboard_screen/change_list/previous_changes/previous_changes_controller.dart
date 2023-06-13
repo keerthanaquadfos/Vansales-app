@@ -1,23 +1,23 @@
 import 'package:get/get.dart';
 
-import 'sales_summary_report_screen.dart';
+import 'previous_changes_screen.dart';
 
-class SalesSummaryReportController extends GetxController {
+class PreviousChangeListController extends GetxController {
   final RxBool isLoading = true.obs;
   RxBool checkLoading() => isLoading;
-  final RxList<SalesSummaryReportList> _salesSummaryReportList =
-      <SalesSummaryReportList>[].obs;
+  final RxList<PreviousChangeList> _previousChangeList =
+      <PreviousChangeList>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     // Initialize the list with fixed values
-    _salesSummaryReportList.addAll([
-      SalesSummaryReportList(
+    _previousChangeList.addAll([
+      PreviousChangeList(
 
           //closingbalance: 0
           ),
-      SalesSummaryReportList(
+      PreviousChangeList(
 
           // Add more fixed values as needed)
           )
@@ -25,8 +25,8 @@ class SalesSummaryReportController extends GetxController {
     isLoading.value = false;
   }
 
-  List<SalesSummaryReportList> get salesSummaryReportList =>
-      _salesSummaryReportList.toList();
+  List<PreviousChangeList> get previousChangeList =>
+      _previousChangeList.toList();
 
   // double get totalExpense => 100.0;
 //double get totalExpense => _shopList.fold(0, (sum, shop) => sum + (double.tryParse(shop.amount) ?? 0));

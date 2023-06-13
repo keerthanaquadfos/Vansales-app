@@ -38,24 +38,14 @@ class _ShopManagementScreenState extends State<ShopManagementScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomCurvedButton(
-                    onPressed: () {
-                      Get.to(const AddShopScreen());
-                    },
-                    tittle: "ADD NEW SHOP",
-                    buttonheight: 40,
-                    buttonwidth: 150),
-                CustomCurvedButton(
-                    onPressed: () {},
-                    tittle: "UPLOAD",
-                    buttonheight: 40,
-                    buttonwidth: 150),
-              ],
-            ),
+            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+            child: CustomCurvedButton(
+                onPressed: () {
+                  Get.to(const AddShopScreen());
+                },
+                tittle: "ADD NEW SHOP",
+                buttonheight: 40,
+                buttonwidth: MediaQuery.of(context).size.width * 1),
           ),
           Expanded(
             child: Container(

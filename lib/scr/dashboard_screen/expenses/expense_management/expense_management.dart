@@ -35,7 +35,7 @@ class _ExpenseManagementState extends State<ExpenseManagement> {
                     Get.to(const ExpenseManagement());
                   },
                   buttonheight: 40,
-                  buttonwidth: 400),
+                  buttonwidth: MediaQuery.of(context).size.width * 1),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: CustomCurvedButton(
@@ -44,15 +44,15 @@ class _ExpenseManagementState extends State<ExpenseManagement> {
                       Get.to(const AddExpenseScreen());
                     },
                     buttonheight: 40,
-                    buttonwidth: 400),
+                    buttonwidth: MediaQuery.of(context).size.width * 1),
               ),
-              CustomCurvedButton(
-                  tittle: "Upload Expense",
-                  onPressed: () {
-                    Get.to(const ExpenseManagement());
-                  },
-                  buttonheight: 40,
-                  buttonwidth: 400),
+              // CustomCurvedButton(
+              //     tittle: "Upload Expense",
+              //     onPressed: () {
+              //       Get.to(const ExpenseManagement());
+              //     },
+              //     buttonheight: 40,
+              //     buttonwidth: MediaQuery.of(context).size.width * 1),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(

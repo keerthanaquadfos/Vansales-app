@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:van_sales_app/scr/dashboard_screen/add_shop/shop_management_screen.dart';
+import 'package:van_sales_app/scr/dashboard_screen/attendance/attendence_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/new_order/new_order_screen/new_order_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/reports/reports_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/show_client/show_client.dart';
+import 'package:van_sales_app/scr/dashboard_screen/van_stock/van_stock_screen.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/tile_container.dart';
 import '../orderDetails/orderDetailsScreen.dart';
+import 'change_list/change_list/change_list_screen.dart';
 import 'expenses/expense_management/expense_management.dart';
+import 'offload/offload_Sceen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -128,7 +132,7 @@ final List<TileGridModel> tileGridtlist = [
   TileGridModel(
     id: 1,
     imagrUrl: "assets/images/add_client_Icons-10.png",
-    title: 'Add client',
+    title: 'Add Shops',
     reportpage: const ShopManagementScreen(),
   ),
   TileGridModel(
@@ -170,26 +174,26 @@ final List<TileGridModel> tileGridtlist = [
   TileGridModel(
     id: 8,
     imagrUrl: "assets/images/activities_Icons-17.png",
-    title: 'Activities',
-    reportpage: const OrederDetailsScreen(),
+    title: 'Change List',
+    reportpage: const ChangrListScreen(),
   ),
   TileGridModel(
     id: 9,
     imagrUrl: "assets/images/offer_Icons-18.png",
-    title: 'Offers',
-    reportpage: const OrederDetailsScreen(),
+    title: 'Van Stock',
+    reportpage: const VanStockScreen(),
   ),
   TileGridModel(
     id: 10,
     imagrUrl: "assets/images/help_Icons-19.png",
-    title: 'Help',
-    reportpage: const OrederDetailsScreen(),
+    title: 'Attendance',
+    reportpage: const AttendanceScreen(),
   ),
   TileGridModel(
     id: 11,
     imagrUrl: "assets/images/target_achievements_Icons-20.png",
-    title: 'Target/ Achievments',
-    reportpage: const OrederDetailsScreen(),
+    title: 'Offload',
+    reportpage: const OffloadScreen(),
   ),
   TileGridModel(
     id: 12,

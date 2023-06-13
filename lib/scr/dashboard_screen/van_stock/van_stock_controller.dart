@@ -1,29 +1,40 @@
 import 'package:get/get.dart';
 
-import 'cash_register_report_screen.dart';
+import 'van_stock_screen.dart';
 
-class CasharegisterReportController extends GetxController {
+class VanStockController extends GetxController {
   final RxBool isLoading = true.obs;
   RxBool checkLoading() => isLoading;
-  final RxList<CashRegisterReportList> _cashRegisterReportList =
-      <CashRegisterReportList>[].obs;
+  final RxList<VanStockList> _vanStockList = <VanStockList>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     // Initialize the list with fixed values
-    _cashRegisterReportList.addAll([
-      CashRegisterReportList(credit: 1500.00, debit: 2000.00
+    _vanStockList.addAll([
+      VanStockList(
+          openingstock: 100.00,
+          change: 233.00,
+          sold: 356.00,
+          offloaded: 562.00,
+          closing: 135.00,
+          received: 10.00
+
           //closingbalance: 0
           ),
-      CashRegisterReportList(credit: 2000.00, debit: 1500.00)
+      VanStockList(
+          openingstock: 100.00,
+          sold: 356.00,
+          offloaded: 562.00,
+          change: 45.00,
+          received: 15,
+          closing: 135.00)
       // Add more fixed values as needed)
     ]);
     isLoading.value = false;
   }
 
-  List<CashRegisterReportList> get cashRegisterReportList =>
-      _cashRegisterReportList.toList();
+  List<VanStockList> get vanStockList => _vanStockList.toList();
 
   // double get totalExpense => 100.0;
 //double get totalExpense => _shopList.fold(0, (sum, shop) => sum + (double.tryParse(shop.amount) ?? 0));

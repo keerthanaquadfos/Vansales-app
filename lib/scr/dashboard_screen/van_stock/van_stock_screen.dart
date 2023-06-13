@@ -1,74 +1,62 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:van_sales_app/scr/dashboard_screen/reports/sales_report/sales_report_controller.dart';
-import '../../../../utils/custom_colors.dart';
-import '../../../../widgets/custom_app_bar.dart';
-import '../../../../widgets/custom_curved_button.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:van_sales_app/widgets/custom_curved_button.dart';
 
-import '../../../../widgets/custom_dropdown.dart';
-import '../../../../widgets/datepickertextfeild.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../widgets/custom_app_bar.dart';
+import '../../../widgets/custom_dropdown.dart';
+import 'van_stock_controller.dart';
 
-class SalesReportScreen extends StatefulWidget {
-  const SalesReportScreen({super.key});
+class VanStockScreen extends StatefulWidget {
+  const VanStockScreen({super.key});
 
   @override
-  State<SalesReportScreen> createState() => _SalesReportScreenState();
+  State<VanStockScreen> createState() => _VanStockScreenState();
 }
 
-class _SalesReportScreenState extends State<SalesReportScreen> {
+class _VanStockScreenState extends State<VanStockScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TitleOnltyCustomAppBar(title: "Sales Register Report "),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  const DatePickerTextField(labelText: "From Date"),
-                  const DatePickerTextField(labelText: "To Date"),
-                  CustemDropdown(
-                    boxwidth: MediaQuery.of(context).size.width * 1,
-                    itemcount: 1,
-                    texthint: "type",
-                    itemlist: typeList,
-                  ),
-                  CustomCurvedButton(
-                      tittle: "Submit",
-                      onPressed: () {},
-                      buttonheight: 40,
-                      buttonwidth: MediaQuery.of(context).size.width * 1),
-                  CustomCurvedButton(
-                      tittle: "PDF",
-                      onPressed: () {},
-                      buttonheight: 40,
-                      buttonwidth: MediaQuery.of(context).size.width * 1),
-                ],
-              ),
+      appBar: const TitleOnltyCustomAppBar(title: "Van Stock "),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: CustemDropdown(
+              texthint: "Stock Type",
+              boxwidth: MediaQuery.of(context).size.width * 1,
+              itemcount: 3,
+              itemlist: vanStocTtype,
             ),
-            const SalesReportTable(),
-          ],
-        ),
+          ),
+          const Expanded(child: VanStockTable()),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: CustomCurvedButton(
+                onPressed: () {},
+                buttonheight: 40,
+                tittle: "Print",
+                buttonwidth: MediaQuery.of(context).size.width * 1),
+          )
+        ],
       ),
     );
   }
 }
 
-class SalesReportTable extends StatefulWidget {
-  const SalesReportTable({super.key});
+class VanStockTable extends StatefulWidget {
+  const VanStockTable({super.key});
 
   @override
-  State<SalesReportTable> createState() => _SalesReportTableState();
+  State<VanStockTable> createState() => _VanStockTableState();
 }
 
-class _SalesReportTableState extends State<SalesReportTable> {
-  final SalesReportController salesReportController =
-      Get.put(SalesReportController());
+class _VanStockTableState extends State<VanStockTable> {
+  final VanStockController vanStockController = Get.put(VanStockController());
 
   @override
   Widget build(BuildContext context) {
@@ -81,21 +69,50 @@ class _SalesReportTableState extends State<SalesReportTable> {
           data: SfDataGridThemeData(
               headerColor: gridHeaderColor, gridLineColor: gridBorderColor),
           child: Obx(() {
-            if (salesReportController.isLoading.value) {
+            if (vanStockController.isLoading.value) {
               return const Text('Loading...');
             }
             return SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: tableHeaderbgColor),
               child: SfDataGrid(
                 source: ShopDataSource(
-                    salesReportController.salesReportList), //_shopList,
+                    vanStockController.vanStockList), //_shopList,
 
                 tableSummaryRows: [
                   GridTableSummaryRow(
                       color: tableHeaderbgColor,
-                      showSummaryInRow: true,
+                      showSummaryInRow: false,
                       title: "Total :",
-                      columns: [],
+                      columns: [
+                        const GridSummaryColumn(
+                            name: 'openingstock',
+                            columnName: 'openingstock',
+                            summaryType: GridSummaryType.sum),
+                        const GridSummaryColumn(
+                            name: 'changein',
+                            columnName: 'changein',
+                            summaryType: GridSummaryType.sum),
+                        const GridSummaryColumn(
+                            name: 'received',
+                            columnName: 'received',
+                            summaryType: GridSummaryType.sum),
+                        const GridSummaryColumn(
+                            name: 'sold',
+                            columnName: 'sold',
+                            summaryType: GridSummaryType.sum),
+                        const GridSummaryColumn(
+                            name: 'change',
+                            columnName: 'change',
+                            summaryType: GridSummaryType.sum),
+                        const GridSummaryColumn(
+                            name: 'offloaded',
+                            columnName: 'offloaded',
+                            summaryType: GridSummaryType.sum),
+                        const GridSummaryColumn(
+                            name: 'closing',
+                            columnName: 'closing',
+                            summaryType: GridSummaryType.sum),
+                      ],
                       position: GridTableSummaryRowPosition.bottom),
                 ],
 
@@ -118,44 +135,12 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "voucher",
-                      label: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "Voucher",
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                            color: tableHeadereColor,
-                          ),
-                        ),
-                      )),
-                  GridColumn(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "voucherDate",
-                      label: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "vouch.Date ",
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                            color: tableHeadereColor,
-                          ),
-                        ),
-                      )),
-                  GridColumn(
-                      width: MediaQuery.of(context).size.width * 0.20,
                       columnName: "code",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Code",
+                          "Product Code ",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -166,12 +151,12 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "customer",
+                      columnName: "productname",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Customer ",
+                          "Product Name",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -182,12 +167,12 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "grossAmount",
+                      columnName: "openingstock",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Gross",
+                          "Opening Stock",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -198,12 +183,12 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "discountRate",
+                      columnName: "received",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Dis ",
+                          "Received",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -214,12 +199,12 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "tax",
+                      columnName: "sold",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "TAX",
+                          "Sold",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -230,12 +215,12 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "net",
+                      columnName: "change",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "NET",
+                          "Change",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -246,12 +231,12 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "invoiceType",
+                      columnName: "offloaded",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Invoice Type",
+                          "Offloaded",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -262,12 +247,28 @@ class _SalesReportTableState extends State<SalesReportTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "status",
+                      columnName: "closing",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Status",
+                          "Closing Stock",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color: tableHeadereColor,
+                          ),
+                        ),
+                      )),
+                  GridColumn(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      columnName: "unit",
+                      label: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "Unit",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -285,27 +286,25 @@ class _SalesReportTableState extends State<SalesReportTable> {
 }
 
 class ShopDataSource extends DataGridSource {
-  ShopDataSource(List<SalesReportList> shops) {
+  ShopDataSource(List<VanStockList> shops) {
     dataGridRows = shops
         .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
               DataGridCell<int>(columnName: "si_no", value: dataGridRow.siNo),
-              DataGridCell<String>(
-                  columnName: "voucher", value: dataGridRow.voucher),
-              DataGridCell<String>(
-                  columnName: "voucherDate", value: dataGridRow.voucherDate),
               DataGridCell<String>(columnName: "code", value: dataGridRow.code),
               DataGridCell<String>(
-                  columnName: "customer", value: dataGridRow.customer),
+                  columnName: "productname", value: dataGridRow.productname),
               DataGridCell<double>(
-                  columnName: "grossAmount", value: dataGridRow.grossAmount),
+                  columnName: "openingstock", value: dataGridRow.openingstock),
               DataGridCell<double>(
-                  columnName: "discountRate", value: dataGridRow.discountRate),
-              DataGridCell<double>(columnName: "tax", value: dataGridRow.tax),
-              DataGridCell<double>(columnName: "net", value: dataGridRow.net),
-              DataGridCell<String>(
-                  columnName: "invoiceType", value: dataGridRow.invoiceType),
-              DataGridCell<String>(
-                  columnName: "status", value: dataGridRow.status),
+                  columnName: "received", value: dataGridRow.received),
+              DataGridCell<double>(columnName: "sold", value: dataGridRow.sold),
+              DataGridCell<double>(
+                  columnName: "change", value: dataGridRow.change),
+              DataGridCell<double>(
+                  columnName: "offloaded", value: dataGridRow.offloaded),
+              DataGridCell<double>(
+                  columnName: "closing", value: dataGridRow.closing),
+              DataGridCell<String>(columnName: "unit", value: dataGridRow.unit),
             ]))
         .toList();
   }
@@ -350,32 +349,33 @@ class ShopDataSource extends DataGridSource {
   }
 }
 
-class SalesReportList {
+class VanStockList {
   int? siNo;
-  String? voucher;
-  String? voucherDate;
+  String? productname;
   String? code;
-  String? customer;
-  double? grossAmount;
-  double? discountRate;
-  double? net;
-  double? tax;
-  String? invoiceType;
-  String? status;
-  SalesReportList(
-      {this.code,
-      this.discountRate,
-      this.invoiceType,
-      this.net,
-      this.tax,
-      this.status,
-      this.voucher,
-      this.grossAmount,
-      this.customer,
-      this.voucherDate,
+  double? openingstock;
+
+  double? received;
+  double? sold;
+  double? offloaded;
+  double? change;
+  double? closing;
+  String? unit;
+  VanStockList(
+      {this.change,
+      this.closing,
+      this.offloaded,
+      this.received,
+      this.sold,
+      this.unit,
+      this.productname,
+      this.openingstock,
+      this.code,
       this.siNo});
 }
 
-final List<DropDownValueModel> typeList = [
-  const DropDownValueModel(name: "all", value: "all")
+List<DropDownValueModel> vanStocTtype = [
+  const DropDownValueModel(name: 'Fresh', value: "value1"),
+  const DropDownValueModel(name: 'Second', value: "value2"),
+  const DropDownValueModel(name: 'Damaged', value: "value2")
 ];

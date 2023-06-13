@@ -79,6 +79,7 @@ class _LedgerSummaryReportTableState extends State<LedgerSummaryReportTable> {
                 tableSummaryRows: [
                   GridTableSummaryRow(
                       showSummaryInRow: false,
+                      title: "Total :",
                       columns: [
                         const GridSummaryColumn(
                             name: 'openingbalance',
