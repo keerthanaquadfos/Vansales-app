@@ -121,14 +121,19 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   height: 200,
                   child: Obx(
                     () {
-                      final pickedImage = addExpenseController.image.value;
-                      if (pickedImage != null) {
-                        return Image.file(
-                          File(pickedImage.path),
-                          fit: BoxFit.cover,
-                        );
-                      } else {
-                        return const Text('No image selected');
+                      try {
+                        final pickedImage = addExpenseController.image.value;
+                        if (pickedImage != null) {
+                          return Image.file(
+                            File(pickedImage.path),
+                            fit: BoxFit.cover,
+                          );
+                        } else {
+                          return const Text('No image selected');
+                        }
+                      } catch (e) {
+                        print('Error occurred while loading the image: $e');
+                        return const Text('Error loading image');
                       }
                     },
                   ),

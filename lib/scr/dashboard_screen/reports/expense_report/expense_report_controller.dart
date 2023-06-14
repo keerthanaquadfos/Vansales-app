@@ -26,13 +26,4 @@ class ExpenseReportController extends GetxController {
   }
 
   List<ExpenseReportList> get expenseReportList => _expenseReportList.toList();
-
-  // double get totalExpense => 100.0;
-//double get totalExpense => _shopList.fold(0, (sum, shop) => sum + (double.tryParse(shop.amount) ?? 0));
-//   double get totalExpense =>
-//       _shopList.fold(0, (sum, shop) => sum + double.parse(shop.amount));
-
-  // void addExpense(ClientList shop) {
-  //   _shopList.add(shop);
-  // }
 }

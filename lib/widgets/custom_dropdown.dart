@@ -22,7 +22,7 @@ class CustemDropdown extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: SizedBox(
         height: 30,
-        width: boxwidth,
+        width: MediaQuery.of(context).size.width * boxwidth,
         child: DropDownTextField(
           textFieldDecoration: InputDecoration(
             hintText: texthint,

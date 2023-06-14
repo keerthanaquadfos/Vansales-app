@@ -16,11 +16,15 @@ class AddExpenseController extends GetxController {
   //   image.value = pickedImage;
   // }
   void pickImage() async {
-    final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+    try {
+      final XFile? pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.camera);
 
-    if (pickedImage != null) {
-      image.value = PickedFile(pickedImage.path);
+      if (pickedImage != null) {
+        image.value = PickedFile(pickedImage.path);
+      }
+    } catch (e) {
+      print('Error occurred while loading the image: controll $e');
     }
   }
 

@@ -22,11 +22,15 @@ class AddShopController extends GetxController {
   //   image.value = pickedImage;
   // }
   void pickImage() async {
-    final XFile? pickedShopImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+    try {
+      final XFile? pickedShopImage =
+          await ImagePicker().pickImage(source: ImageSource.camera);
 
-    if (pickedShopImage != null) {
-      image.value = PickedFile(pickedShopImage.path);
+      if (pickedShopImage != null) {
+        image.value = PickedFile(pickedShopImage.path);
+      }
+    } catch (e) {
+      print('Error occurred while loading the image: controll $e');
     }
   }
 

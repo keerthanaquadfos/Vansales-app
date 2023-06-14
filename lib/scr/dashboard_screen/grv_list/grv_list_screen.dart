@@ -1,86 +1,62 @@
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:van_sales_app/utils/custom_colors.dart';
-import 'package:van_sales_app/widgets/custom_textfeild.dart';
+
+import '../../../utils/custom_colors.dart';
 import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/custom_curved_button.dart';
-import '../../../widgets/custom_dropdown.dart';
-import 'offload_controller.dart';
-import 'previous_offload/previous_offload_screen.dart';
+import 'grv_list_controller.dart';
+import 'previous_return/previous_returns_screen.dart';
 
-class OffloadScreen extends StatefulWidget {
-  const OffloadScreen({super.key});
+class GRVListScreen extends StatefulWidget {
+  const GRVListScreen({super.key});
 
   @override
-  State<OffloadScreen> createState() => _OffloadScreenState();
+  State<GRVListScreen> createState() => _GRVListScreenState();
 }
 
-class _OffloadScreenState extends State<OffloadScreen> {
-  final OffloadController offloadController = Get.put(OffloadController());
-  final Rx<TextEditingController> _controllerBarcodeScan =
-      TextEditingController().obs;
+class _GRVListScreenState extends State<GRVListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TitleOnltyCustomAppBar(title: "Offload "),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                CustomCurvedButton(
-                    tittle: "Preious",
-                    onPressed: () {
-                      Get.to(const PreviousOffloadScreen());
-                    },
-                    buttonheight: 40,
-                    buttonwidth: .95),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomTextFielBox(
-                    controller: offloadController.barcodeController,
-                    text: "Scan Barcode"),
-                ElevatedButton(
-                  onPressed: () {
-                    offloadController.scanBarcode();
-                  },
-                  child: const Text('Scan Barcode'),
-                ),
-                CustemDropdown(
-                  texthint: "Stock Type",
-                  boxwidth: 1,
-                  itemcount: 3,
-                  itemlist: stockType,
-                ),
-                CustomCurvedButton(
-                    tittle: "Summary",
-                    onPressed: () {},
-                    buttonheight: 40,
-                    buttonwidth: .95),
-              ],
+      appBar: const TitleOnltyCustomAppBar(title: "GRV List"),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  // CustomTextField(controller: _controllerCustomerName, text: "Customer Name")
+
+                  CustomCurvedButton(
+                      tittle: "Previous",
+                      onPressed: () {
+                        Get.to(const PreviousReturnScreen());
+                      },
+                      buttonheight: 40,
+                      buttonwidth: MediaQuery.of(context).size.width * 1),
+                ],
+              ),
             ),
-          ),
-          const OffloadTable(),
-        ],
+            const GRVTable(),
+          ],
+        ),
       ),
     );
   }
 }
 
-class OffloadTable extends StatefulWidget {
-  const OffloadTable({super.key});
+class GRVTable extends StatefulWidget {
+  const GRVTable({super.key});
 
   @override
-  State<OffloadTable> createState() => _OffloadTableState();
+  State<GRVTable> createState() => _GRVTableState();
 }
 
-class _OffloadTableState extends State<OffloadTable> {
-  final OffloadController offloadController = Get.put(OffloadController());
+class _GRVTableState extends State<GRVTable> {
+  final GRVListController gRVListController = Get.put(GRVListController());
 
   @override
   Widget build(BuildContext context) {
@@ -93,14 +69,13 @@ class _OffloadTableState extends State<OffloadTable> {
           data: SfDataGridThemeData(
               headerColor: gridHeaderColor, gridLineColor: gridBorderColor),
           child: Obx(() {
-            if (offloadController.isLoading.value) {
+            if (gRVListController.isLoading.value) {
               return const Text('Loading...');
             }
             return SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: tableHeaderbgColor),
               child: SfDataGrid(
-                source: ShopDataSource(
-                    offloadController.ooffloadeList), //_shopList,
+                source: ShopDataSource(gRVListController.gRVList), //_shopList,
 
                 columns: [
                   GridColumn(
@@ -121,12 +96,12 @@ class _OffloadTableState extends State<OffloadTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "product",
+                      columnName: "clientCode",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Product",
+                          "Client Code",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -137,12 +112,12 @@ class _OffloadTableState extends State<OffloadTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "expDate",
+                      columnName: "client",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Exp.Date ",
+                          "Client ",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -153,12 +128,12 @@ class _OffloadTableState extends State<OffloadTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "barcode",
+                      columnName: "location",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Barcode",
+                          "Location ",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -169,12 +144,12 @@ class _OffloadTableState extends State<OffloadTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "stock",
+                      columnName: "grvNo",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Stock ",
+                          "GRV No ",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -185,12 +160,12 @@ class _OffloadTableState extends State<OffloadTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "unit",
+                      columnName: "grvAmount",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Unit ",
+                          "GRV Amount",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -201,28 +176,12 @@ class _OffloadTableState extends State<OffloadTable> {
                       )),
                   GridColumn(
                       width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "addedQuantity",
+                      columnName: "grvDate",
                       label: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          "Added Qty",
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                            color: tableHeadereColor,
-                          ),
-                        ),
-                      )),
-                  GridColumn(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      columnName: "status",
-                      label: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "Status",
+                          "GRV Date",
                           overflow: TextOverflow.clip,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -240,24 +199,22 @@ class _OffloadTableState extends State<OffloadTable> {
 }
 
 class ShopDataSource extends DataGridSource {
-  ShopDataSource(List<OffloadeList> shops) {
+  ShopDataSource(List<GRVList> shops) {
     dataGridRows = shops
         .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
               DataGridCell<int>(columnName: "si_no", value: dataGridRow.siNo),
               DataGridCell<String>(
-                  columnName: "product", value: dataGridRow.product),
+                  columnName: "clientCode", value: dataGridRow.clientCode),
               DataGridCell<String>(
-                  columnName: "expDate", value: dataGridRow.expDate),
+                  columnName: "client", value: dataGridRow.client),
               DataGridCell<String>(
-                  columnName: "barcode", value: dataGridRow.barcode),
+                  columnName: "location", value: dataGridRow.location),
+              DataGridCell<String>(
+                  columnName: "grvNo", value: dataGridRow.grvNo),
               DataGridCell<double>(
-                  columnName: "stock", value: dataGridRow.stock),
-              DataGridCell<String>(columnName: "unit", value: dataGridRow.unit),
-              DataGridCell<double>(
-                  columnName: "addedQuantity",
-                  value: dataGridRow.addedQuantity),
+                  columnName: "grvAmount", value: dataGridRow.grvAmount),
               DataGridCell<String>(
-                  columnName: "status", value: dataGridRow.status),
+                  columnName: "grvDate", value: dataGridRow.grvDate),
             ]))
         .toList();
   }
@@ -302,37 +259,20 @@ class ShopDataSource extends DataGridSource {
   }
 }
 
-class OffloadeList {
+class GRVList {
   int? siNo;
-  String? product;
-  String? expDate;
-  String? barcode;
-  double? stock;
-  String? unit;
-  double? addedQuantity;
-  String? status;
-  OffloadeList(
-      {this.addedQuantity,
-      this.unit,
-      this.barcode,
-      this.expDate,
-      this.product,
-      this.status,
-      this.stock,
+  String? grvDate;
+  String? clientCode;
+  String? client;
+  String? location;
+  String? grvNo;
+  double? grvAmount;
+  GRVList(
+      {this.grvDate,
+      this.grvAmount,
+      this.grvNo,
+      this.location,
+      this.clientCode,
+      this.client,
       this.siNo});
 }
-
-final List<DropDownValueModel> stockType = [
-  const DropDownValueModel(
-    name: "Fresh",
-    value: "fresh",
-  ),
-  const DropDownValueModel(
-    name: "Seconds",
-    value: "Seconds",
-  ),
-  const DropDownValueModel(
-    name: "Damaged",
-    value: "damaged",
-  )
-];

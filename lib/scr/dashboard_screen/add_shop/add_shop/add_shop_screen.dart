@@ -75,13 +75,13 @@ class _AddShopScreenState extends State<AddShopScreen> {
                   children: [
                     CustemDropdown(
                       texthint: "Customer Type",
-                      boxwidth: MediaQuery.of(context).size.width * .45,
+                      boxwidth: .45,
                       itemcount: 2,
                       itemlist: customertypeitemlist,
                     ),
                     CustemDropdown(
                       texthint: "Emirates",
-                      boxwidth: MediaQuery.of(context).size.width * .45,
+                      boxwidth: .45,
                       itemcount: 1,
                       itemlist: emirateslist,
                     ),
@@ -93,13 +93,13 @@ class _AddShopScreenState extends State<AddShopScreen> {
                 children: [
                   CustemDropdown(
                     texthint: "Sales Type",
-                    boxwidth: MediaQuery.of(context).size.width * .45,
+                    boxwidth: .45,
                     itemcount: 1,
                     itemlist: salestypeitemlist,
                   ),
                   CustemDropdown(
                     texthint: "Route",
-                    boxwidth: MediaQuery.of(context).size.width * .45,
+                    boxwidth: .45,
                     itemcount: 1,
                     itemlist: routelist,
                   ),
@@ -144,14 +144,19 @@ class _AddShopScreenState extends State<AddShopScreen> {
                   height: 200,
                   child: Obx(
                     () {
-                      final pickedImage = addShopController.image.value;
-                      if (pickedImage != null) {
-                        return Image.file(
-                          File(pickedImage.path),
-                          fit: BoxFit.cover,
-                        );
-                      } else {
-                        return const Text('No image selected');
+                      try {
+                        final pickedImage = addShopController.image.value;
+                        if (pickedImage != null) {
+                          return Image.file(
+                            File(pickedImage.path),
+                            fit: BoxFit.cover,
+                          );
+                        } else {
+                          return const Text('No image selected');
+                        }
+                      } catch (e) {
+                        print('Error occurred while loading the image: $e');
+                        return const Text('Error loading image');
                       }
                     },
                   ),

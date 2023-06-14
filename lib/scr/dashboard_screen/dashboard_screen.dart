@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:van_sales_app/scr/dashboard_screen/add_shop/shop_management_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/attendance/attendence_screen.dart';
+import 'package:van_sales_app/scr/dashboard_screen/invoice_List/invoice_list_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/new_order/new_order_screen/new_order_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/reports/reports_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/show_client/show_client.dart';
@@ -10,6 +11,7 @@ import '../../widgets/tile_container.dart';
 import '../orderDetails/orderDetailsScreen.dart';
 import 'change_list/change_list/change_list_screen.dart';
 import 'expenses/expense_management/expense_management.dart';
+import 'grv_list/grv_list_screen.dart';
 import 'offload/offload_Sceen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -198,14 +200,14 @@ final List<TileGridModel> tileGridtlist = [
   TileGridModel(
     id: 12,
     imagrUrl: "assets/images/offer_Icons-18.png",
-    title: 'Offers',
-    reportpage: const OrederDetailsScreen(),
+    title: 'Invoice List',
+    reportpage: const InvoiceListScreen(),
   ),
   TileGridModel(
     id: 13,
     imagrUrl: "assets/images/offer_Icons-18.png",
-    title: 'Help',
-    reportpage: const OrederDetailsScreen(),
+    title: 'GRV List',
+    reportpage: const GRVListScreen(),
   ),
   TileGridModel(
     id: 14,

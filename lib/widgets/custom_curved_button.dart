@@ -19,7 +19,7 @@ class CustomCurvedButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       height: buttonheight,
-      width: buttonwidth,
+      width: MediaQuery.of(context).size.width * buttonwidth,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [signinTheamColor1, signinTheamColor2], // Gradient colors
