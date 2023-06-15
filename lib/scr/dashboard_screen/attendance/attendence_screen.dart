@@ -23,7 +23,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               tittle: "Download Sales Closing Sheet",
               onPressed: () {},
               buttonheight: 50,
-              buttonwidth: MediaQuery.of(context).size.width * .7),
+              buttonwidth: .7),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -31,7 +31,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   tittle: "Odometer Reading",
                   onPressed: () {},
                   buttonheight: 60,
-                  buttonwidth: MediaQuery.of(context).size.width * .4),
+                  buttonwidth: .4),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: SizedBox(
@@ -48,12 +48,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   tittle: "Punch in",
                   onPressed: () {},
                   buttonheight: MediaQuery.of(context).size.height * .2,
-                  buttonwidth: MediaQuery.of(context).size.width * .4),
+                  buttonwidth: .4),
               CustomCurvedButton(
                   tittle: "Punch out",
                   onPressed: () {},
                   buttonheight: MediaQuery.of(context).size.height * .2,
-                  buttonwidth: MediaQuery.of(context).size.width * .4),
+                  buttonwidth: .4),
             ],
           ),
           Text("Punched in at ")

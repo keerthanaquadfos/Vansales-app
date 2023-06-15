@@ -10,9 +10,13 @@ import '../../utils/custom_colors.dart';
 import '../../widgets/tile_container.dart';
 import '../orderDetails/orderDetailsScreen.dart';
 import 'change_list/change_list/change_list_screen.dart';
+import 'deposits/deposit_screen.dart';
 import 'expenses/expense_management/expense_management.dart';
 import 'grv_list/grv_list_screen.dart';
 import 'offload/offload_Sceen.dart';
+import 'products/products_screen.dart';
+import 'receipt_list/_receipt_main/_receipt_screen.dart';
+import 'shop_in_status/shop_in_status_scree.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -27,7 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Container(
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.only(bottom: 10),
-        height: MediaQuery.of(context).size.height * 0.75,
+        height: MediaQuery.of(context).size.height * .85,
         width: MediaQuery.of(context).size.width * 1.0, // 75% height of screen
         decoration: const BoxDecoration(
           color: dashAppBarColor,
@@ -38,12 +42,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
 
         //header section
-        child: const Column(
+        child: Column(
           children: [
-            DashHeader(),
+            const DashHeader(),
             SingleChildScrollView(
               child: Column(
-                children: [SizedBox(height: 500, child: TilesGrid())],
+                children: [
+                  SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.55,
+                      child: const TilesGrid())
+                ],
               ),
             ),
           ],
@@ -128,7 +136,7 @@ final List<TileGridModel> tileGridtlist = [
   TileGridModel(
     id: 0,
     imagrUrl: "assets/images/schedules_Icons-09.png",
-    title: "Schedules",
+    title: "Map",
     reportpage: const OrederDetailsScreen(),
   ),
   TileGridModel(
@@ -146,8 +154,8 @@ final List<TileGridModel> tileGridtlist = [
   TileGridModel(
     id: 3,
     imagrUrl: "assets/images/product_Icons-12.png",
-    title: 'Product',
-    reportpage: const OrederDetailsScreen(),
+    title: 'Products',
+    reportpage: const ProductScreen(),
   ),
   TileGridModel(
     id: 4,
@@ -212,7 +220,25 @@ final List<TileGridModel> tileGridtlist = [
   TileGridModel(
     id: 14,
     imagrUrl: "assets/images/offer_Icons-18.png",
-    title: 'Target/ Achievments',
-    reportpage: const OrederDetailsScreen(),
+    title: 'Shop In Status',
+    reportpage: const ShopInStatusScreen(),
+  ),
+  TileGridModel(
+    id: 15,
+    imagrUrl: "assets/images/offer_Icons-18.png",
+    title: 'Deposits',
+    reportpage: const DepositScreen(),
+  ),
+  TileGridModel(
+    id: 16,
+    imagrUrl: "assets/images/offer_Icons-18.png",
+    title: 'Receipt List',
+    reportpage: const MainReceiptListScreen(),
+  ),
+  TileGridModel(
+    id: 17,
+    imagrUrl: "assets/images/offer_Icons-18.png",
+    title: '***',
+    reportpage: const ShopInStatusScreen(),
   ),
 ];

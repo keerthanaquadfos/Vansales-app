@@ -50,52 +50,16 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: CustomTextField(
-                      controller: _controllerExpenseHead, text: "Expense Head")
-
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black12),
-                  //     ),
-                  //     focusedBorder: UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: signinTheamColor1),
-                  //     ),
-                  //     label: Text('Expensse Head'),
-                  //   ),
-                  // ),
-                  ),
+                      controller: _controllerExpenseHead,
+                      text: "Expense Head")),
               Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: CustomTextField(
-                      controller: _controllerPurpose, text: "Purpose")
-                  //  TextField(
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black12),
-                  //     ),
-                  //     focusedBorder: UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: signinTheamColor1),
-                  //     ),
-                  //     label: Text(' Purpose'),
-                  //   ),
-                  // ),
-                  ),
+                      controller: _controllerPurpose, text: "Purpose")),
               Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: CustomTextField(
-                      controller: _controllerAmount, text: "Amount")
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black12),
-                  //     ),
-                  //     focusedBorder: UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: signinTheamColor1),
-                  //     ),
-                  //     label: Text('Amount '),
-                  //   ),
-                  // ),
-                  ),
+                      controller: _controllerAmount, text: "Amount")),
               Padding(
                 padding: const EdgeInsets.only(bottom: 25),
                 child: TextField(
@@ -166,15 +130,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   },
                   buttonheight: 40,
                   buttonwidth: 150),
-              // Padding(
-              // padding: const EdgeInsets.all(20.0),
-              // child: Obx(
-              //   () => Text(
-              //     "Total Expense: ${addExpenseController.totalExpense}",
-              //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-              //   ),
-              // ),
-              // ),
+
               const ExpenseTable(),
             ],
           ),
@@ -194,14 +150,6 @@ class ExpenseTable extends StatefulWidget {
 class _ExpenseTableState extends State<ExpenseTable> {
   final AddExpenseController addExpenseController =
       Get.put(AddExpenseController());
-  // List<Shop> _shopList = [
-  //   Shop(
-  //       siNo: 1,
-  //       expenseHead: "oil",
-  //       date: "2/6/23",
-  //       purpous: "kitchen use",
-  //       amount: 150)
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -211,8 +159,7 @@ class _ExpenseTableState extends State<ExpenseTable> {
           BoxDecoration(border: Border.all(width: 1, color: gridBorderColor)),
       margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: SfDataGridTheme(
-          data: SfDataGridThemeData(
-              headerColor: gridHeaderColor, gridLineColor: gridBorderColor),
+          data: SfDataGridThemeData(headerColor: tableHeaderbgColor),
           child: Obx(() {
             if (!addExpenseController.isLoading.value) {
               return const Text('Loading...');

@@ -36,3 +36,24 @@ class RemoveButton extends StatelessWidget {
         ));
   }
 }
+
+class DetailsButton extends StatelessWidget {
+  const DetailsButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          // Button action for the "Add" functionality
+        },
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+              const Color.fromARGB(255, 152, 42,
+                  216)), // Set the desired background color for the button
+        ),
+        child: const Text(
+          "Details",
+          style: TextStyle(fontSize: 12, color: Colors.white),
+        ));
+  }
+}

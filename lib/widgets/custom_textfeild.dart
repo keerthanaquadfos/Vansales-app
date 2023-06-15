@@ -16,8 +16,77 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: TextField(
+          controller: widget.controller,
+          decoration: InputDecoration(
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black12),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: signinTheamColor1,
+              ),
+            ),
+            label: Text(widget.text),
+          ),
+        ));
+  }
+}
+
+class LargeCustomTextField extends StatefulWidget {
+  final TextEditingController controller;
+  final String text;
+  const LargeCustomTextField(
+      {required this.controller, required this.text, super.key});
+
+  @override
+  State<LargeCustomTextField> createState() => _LargeCustomTextFieldState();
+}
+
+class _LargeCustomTextFieldState extends State<LargeCustomTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
         padding: const EdgeInsets.only(bottom: 5),
         child: TextField(
+          minLines: 5,
+          maxLines: 5,
+          maxLength: 10,
+          controller: widget.controller,
+          decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black12),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: signinTheamColor1,
+              ),
+            ),
+            label: Text(widget.text),
+          ),
+        ));
+  }
+}
+
+class CustomTextFieldOnlyNumber extends StatefulWidget {
+  final TextEditingController controller;
+  final String text;
+  const CustomTextFieldOnlyNumber(
+      {required this.controller, required this.text, super.key});
+
+  @override
+  State<CustomTextFieldOnlyNumber> createState() =>
+      _CustomTextFieldOnlyNumberState();
+}
+
+class _CustomTextFieldOnlyNumberState extends State<CustomTextFieldOnlyNumber> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: TextField(
+          keyboardType: TextInputType.number,
           controller: widget.controller,
           decoration: InputDecoration(
             enabledBorder: const UnderlineInputBorder(

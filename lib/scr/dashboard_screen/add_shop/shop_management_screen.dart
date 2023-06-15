@@ -41,7 +41,7 @@ class _ShopManagementScreenState extends State<ShopManagementScreen> {
             padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
             child: CustomCurvedButton(
                 onPressed: () {
-                  Get.to(const AddShopScreen());
+                  Get.to(() => const AddShopScreen());
                 },
                 tittle: "ADD NEW SHOP",
                 buttonheight: 40,
