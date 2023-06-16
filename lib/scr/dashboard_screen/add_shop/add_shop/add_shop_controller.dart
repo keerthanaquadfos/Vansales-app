@@ -5,14 +5,13 @@ import 'package:image_picker/image_picker.dart';
 class AddShopController extends GetxController {
   //create variables
   final RxBool isLoading = true.obs;
-  final RxDouble latitude = 0.0.obs;
-  final RxDouble longitude = 0.0.obs;
+  final RxDouble latitudeCurrent = 0.0.obs;
+  final RxDouble longitudeCurrent = 1.1.obs;
 
   // instance for them to be called
   RxBool checkLoading() => isLoading;
-  RxDouble getLatitude() => latitude;
-  RxDouble getLongitude() => longitude;
-// image picker
+  RxDouble getLatitude() => latitudeCurrent;
+  RxDouble getLongitude() => longitudeCurrent;
 
   final image = Rxn<PickedFile>();
   // File? image;
@@ -61,11 +60,11 @@ class AddShopController extends GetxController {
     return await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high)
         .then((value) {
-      latitude.value = value.latitude;
-      longitude.value = value.longitude;
+      latitudeCurrent.value = value.latitude;
+      longitudeCurrent.value = value.longitude;
       /////////////////////////////
-      // print(latitude.value);
-      // print(longitude.value);
+      print(latitudeCurrent.value);
+      print(longitudeCurrent.value);
 
       ///////////////////////////
       //calling our weather api

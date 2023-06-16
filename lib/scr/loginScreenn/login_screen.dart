@@ -22,7 +22,7 @@ class _LogInScreenState extends State<LogInScreen> {
       children: [
         Container(
           padding: const EdgeInsets.all(60),
-          height: MediaQuery.of(context).size.height * 0.75,
+          height: MediaQuery.of(context).size.height * 0.70,
           width:
               MediaQuery.of(context).size.width * 1.0, // 75% height of screen
           decoration: const BoxDecoration(

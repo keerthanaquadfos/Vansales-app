@@ -20,8 +20,8 @@ class OffloadScreen extends StatefulWidget {
 
 class _OffloadScreenState extends State<OffloadScreen> {
   final OffloadController offloadController = Get.put(OffloadController());
-  final Rx<TextEditingController> _controllerBarcodeScan =
-      TextEditingController().obs;
+  // final Rx<TextEditingController> _controllerBarcodeScan =
+  //     TextEditingController().obs;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

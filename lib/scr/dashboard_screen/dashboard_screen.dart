@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:van_sales_app/scr/dashboard_screen/add_shop/shop_management_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/attendance/attendence_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/invoice_List/invoice_list_screen.dart';
@@ -9,10 +10,12 @@ import 'package:van_sales_app/scr/dashboard_screen/van_stock/van_stock_screen.da
 import '../../utils/custom_colors.dart';
 import '../../widgets/tile_container.dart';
 import '../orderDetails/orderDetailsScreen.dart';
+import 'add_shop/add_shop/add_shop_controller.dart';
 import 'change_list/change_list/change_list_screen.dart';
 import 'deposits/deposit_screen.dart';
 import 'expenses/expense_management/expense_management.dart';
 import 'grv_list/grv_list_screen.dart';
+import 'map/map_screen.dart';
 import 'offload/offload_Sceen.dart';
 import 'products/products_screen.dart';
 import 'receipt_list/_receipt_main/_receipt_screen.dart';
@@ -26,6 +29,14 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  AddShopController addShopControllerdash = Get.put(AddShopController());
+  @override
+  void initState() {
+    addShopControllerdash.getLocation();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -137,7 +148,7 @@ final List<TileGridModel> tileGridtlist = [
     id: 0,
     imagrUrl: "assets/images/schedules_Icons-09.png",
     title: "Map",
-    reportpage: const OrederDetailsScreen(),
+    reportpage: const MapScreen(),
   ),
   TileGridModel(
     id: 1,
@@ -235,10 +246,10 @@ final List<TileGridModel> tileGridtlist = [
     title: 'Receipt List',
     reportpage: const MainReceiptListScreen(),
   ),
-  TileGridModel(
-    id: 17,
-    imagrUrl: "assets/images/offer_Icons-18.png",
-    title: '***',
-    reportpage: const ShopInStatusScreen(),
-  ),
+  // TileGridModel(
+  //   id: 17,
+  //   imagrUrl: "assets/images/offer_Icons-18.png",
+  //   title: '***',
+  //   reportpage: const ShopInStatusScreen(),
+  // ),
 ];

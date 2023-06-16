@@ -23,9 +23,13 @@ class _AddShopScreenState extends State<AddShopScreen> {
 
   @override
   void initState() {
-    ever(addShopController.latitude, (_) {
+    ever(addShopController.latitudeCurrent, (_) {
       _controllerLocaton.text =
-          ("Latitude:${addShopController.latitude.value.toString()}Longitude:${addShopController.latitude.value.toString()}");
+          ("Latitude:${addShopController.latitudeCurrent.value.toString()}");
+    });
+    ever(addShopController.longitudeCurrent, (_) {
+      _controllerLocaton.text =
+          ("Longitude:${addShopController.longitudeCurrent.value.toString()}");
     });
     super.initState();
   }
