@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/custom_colors.dart';
 
@@ -21,13 +22,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.only(left: 30),
         child: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: dashAppBarItemColor,
-            size: 35,
-          ),
-          onPressed: onBackTap,
-        ),
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: dashAppBarItemColor,
+              size: 35,
+            ),
+            onPressed: () => Get.back()),
       ),
       title: Padding(
         padding: const EdgeInsets.only(left: 20),
@@ -82,7 +82,7 @@ class TitleOnltyCustomAppBar extends StatelessWidget
             color: dashAppBarItemColor,
             size: 30,
           ),
-          onPressed: onBackTap,
+          onPressed: () => Get.back(),
         ),
       ),
       title: Padding(

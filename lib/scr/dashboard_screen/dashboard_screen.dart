@@ -9,9 +9,11 @@ import 'package:van_sales_app/scr/dashboard_screen/show_client/show_client.dart'
 import 'package:van_sales_app/scr/dashboard_screen/van_stock/van_stock_screen.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/tile_container.dart';
+import '../DemoScreens/invoice_screen.dart';
 import '../orderDetails/orderDetailsScreen.dart';
 import 'add_shop/add_shop/add_shop_controller.dart';
 import 'change_list/change_list/change_list_screen.dart';
+import 'complaint_srceen/complaint_screen.dart';
 import 'deposits/deposit_screen.dart';
 import 'expenses/expense_management/expense_management.dart';
 import 'grv_list/grv_list_screen.dart';
@@ -125,6 +127,7 @@ class TilesGrid extends StatelessWidget {
           );
         },
         itemCount: tileGridtlist.length,
+
         shrinkWrap: true, // Set shrinkWrap to true
       ),
     );
@@ -150,17 +153,23 @@ final List<TileGridModel> tileGridtlist = [
     title: "Map",
     reportpage: const MapScreen(),
   ),
-  TileGridModel(
-    id: 1,
-    imagrUrl: "assets/images/add_client_Icons-10.png",
-    title: 'Add Shops',
-    reportpage: const ShopManagementScreen(),
-  ),
+  // TileGridModel(
+  //   id: 1,
+  //   imagrUrl: "assets/images/add_client_Icons-10.png",
+  //   title: 'Add Shops',
+  //   reportpage: const ShopManagementScreen(),
+  // ),
+  // TileGridModel(
+  //   id: 1,
+  //   imagrUrl: "assets/images/add_client_Icons-10.png",
+  //   title: 'Add Shops',
+  //   reportpage: const OrederDetailsScreen(),
+  // ),
   TileGridModel(
     id: 2,
-    imagrUrl: "assets/images/overdues_Icons-11.png",
-    title: 'Overdues',
-    reportpage: const DemoScreen1(),
+    imagrUrl: "assets/images/add_client_Icons-10.png",
+    title: 'Complaints',
+    reportpage: const ComplaintScreen(), //const DemoScreen1(),
   ),
   TileGridModel(
     id: 3,
@@ -246,10 +255,10 @@ final List<TileGridModel> tileGridtlist = [
     title: 'Receipt List',
     reportpage: const MainReceiptListScreen(),
   ),
-  // TileGridModel(
-  //   id: 17,
-  //   imagrUrl: "assets/images/offer_Icons-18.png",
-  //   title: '***',
-  //   reportpage: const ShopInStatusScreen(),
-  // ),
+  TileGridModel(
+    id: 17,
+    imagrUrl: "assets/images/offer_Icons-18.png",
+    title: 'Invoice',
+    reportpage: const InvoiceScreen(),
+  ),
 ];

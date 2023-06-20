@@ -18,3 +18,4 @@ const Color tableHeadereColor = Color(0xff263238);
 const Color complaintTailDateTimeColor = Color(0xff575757);
 const Color searchBoxItemsColor = Color(0xffffffff);
 const Color tableHeaderbgColor = Color.fromARGB(255, 232, 216, 236);
+const Color taxInvoiceTextGrayColor = Color.fromARGB(125, 80, 82, 95);

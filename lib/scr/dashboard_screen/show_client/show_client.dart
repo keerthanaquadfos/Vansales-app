@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:van_sales_app/scr/dashboard_screen/add_shop/add_shop/add_shop_screen.dart';
 import 'package:van_sales_app/widgets/custom_app_bar.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:van_sales_app/widgets/custom_curved_button.dart';
 import '../../../utils/custom_colors.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -17,12 +19,21 @@ class ShowClientScreen extends StatefulWidget {
 class _ShowClientScreenState extends State<ShowClientScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: TitleOnltyCustomAppBar(title: "Show Clients"),
+    return Scaffold(
+      appBar: const TitleOnltyCustomAppBar(title: "Show Clients"),
       body: Column(
         children: [
           //CustomSearchbar(),
-          ClientTable(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: CustomCurvedButton(
+              onPressed: (() => Get.to(const AddShopScreen())),
+              buttonheight: 40,
+              buttonwidth: 1,
+              tittle: "Add Shop",
+            ),
+          ),
+          const ClientTable(),
         ],
       ),
     );

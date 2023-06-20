@@ -56,7 +56,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   buttonwidth: .4),
             ],
           ),
-          Text("Punched in at ")
+          const Text("Punched in at ")
         ],
       ),
     );
