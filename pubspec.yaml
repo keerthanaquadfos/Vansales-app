@@ -32,14 +32,15 @@ dependencies:
   dropdown_textfield: ^1.0.8
   flutter:
     sdk: flutter
+  flutter_barcode_scanner: ^2.0.0
   geolocator: ^9.0.2
   get: ^4.6.5
+  google_maps_flutter: ^2.3.0
   image_picker: ^0.8.7+5
   intl: ^0.18.1
+  syncfusion_flutter_calendar: ^21.2.10
   syncfusion_flutter_core: ^21.2.9
   syncfusion_flutter_datagrid: ^21.2.8
-  flutter_barcode_scanner: ^2.0.0
-  google_maps_flutter: ^2.3.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
