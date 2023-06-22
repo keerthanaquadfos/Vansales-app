@@ -4,6 +4,8 @@ import 'package:van_sales_app/scr/dashboard_screen/add_shop/shop_management_scre
 import 'package:van_sales_app/scr/dashboard_screen/attendance/attendence_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/invoice_List/invoice_list_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/new_order/new_order_screen/new_order_screen.dart';
+import 'package:van_sales_app/scr/dashboard_screen/new_order/store_keeper/confirmed_orders/confirmed_oredrs_screen.dart';
+import 'package:van_sales_app/scr/dashboard_screen/new_order/store_keeper/recent_orders/order_details/order_details_sceen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/reports/reports_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/show_client/show_client.dart';
 import 'package:van_sales_app/scr/dashboard_screen/van_stock/van_stock_screen.dart';
@@ -18,10 +20,14 @@ import 'deposits/deposit_screen.dart';
 import 'expenses/expense_management/expense_management.dart';
 import 'grv_list/grv_list_screen.dart';
 import 'map/map_screen.dart';
+import 'new_order/store_keeper/recent_orders/recent_orders_screen.dart';
+import 'new_order/store_keeper/store_keeper_order_screen.dart';
 import 'offload/offload_Sceen.dart';
 import 'products/products_screen.dart';
 import 'receipt_list/_receipt_main/_receipt_screen.dart';
+import 'schedule/schedule_screen.dart';
 import 'shop_in_status/shop_in_status_scree.dart';
+import 'package:van_sales_app/utils/globals.dart' as globals;
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -123,10 +129,14 @@ class TilesGrid extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return TileContainer(
-            reportTiledata: tileGridtlist[index],
+            reportTiledata: globals.isStoreKeeper
+                ? soreKeepertileGridtlist[index]
+                : tileGridtlist[index],
           );
         },
-        itemCount: tileGridtlist.length,
+        itemCount: globals.isStoreKeeper
+            ? soreKeepertileGridtlist.length
+            : tileGridtlist.length,
 
         shrinkWrap: true, // Set shrinkWrap to true
       ),
@@ -145,6 +155,33 @@ class TileGridModel {
       required this.reportpage,
       required this.title});
 }
+
+final List<TileGridModel> soreKeepertileGridtlist = [
+  TileGridModel(
+    id: 0,
+    imagrUrl: "assets/images/schedules_Icons-09.png",
+    title: "Recent Orders",
+    reportpage: const RecentOrderScreen(),
+  ),
+  TileGridModel(
+    id: 2,
+    imagrUrl: "assets/images/add_client_Icons-10.png",
+    title: 'Confirmed Orders',
+    reportpage: const ConfirmedOrderScreen(), //const DemoScreen1(),
+  ),
+  TileGridModel(
+    id: 3,
+    imagrUrl: "assets/images/product_Icons-12.png",
+    title: 'Approved Orders',
+    reportpage: const OrderDetailsScreen(),
+  ),
+  TileGridModel(
+    id: 4,
+    imagrUrl: "assets/images/schedules_Icons-09.png",
+    title: 'Declined Orders',
+    reportpage: const OrderDetailsScreen(),
+  ),
+];
 
 final List<TileGridModel> tileGridtlist = [
   TileGridModel(
@@ -179,9 +216,9 @@ final List<TileGridModel> tileGridtlist = [
   ),
   TileGridModel(
     id: 4,
-    imagrUrl: "assets/images/expenses_Icons-13.png",
-    title: 'Expenses',
-    reportpage: const ExpenseManagement(),
+    imagrUrl: "assets/images/schedules_Icons-09.png",
+    title: 'Schedule',
+    reportpage: const ScheduleScreen(),
   ),
   TileGridModel(
     id: 5,
@@ -193,7 +230,8 @@ final List<TileGridModel> tileGridtlist = [
     id: 6,
     imagrUrl: "assets/images/new_arrival_Icons-15.png",
     title: 'New Order',
-    reportpage: const NewOrderScreen(),
+    reportpage:
+        const StoreKeeperOrderScreen(), //***/ sales Staff scr ***//const NewOrderScreen(),
   ),
   TileGridModel(
     id: 7,
@@ -203,9 +241,9 @@ final List<TileGridModel> tileGridtlist = [
   ),
   TileGridModel(
     id: 8,
-    imagrUrl: "assets/images/activities_Icons-17.png",
-    title: 'Change List',
-    reportpage: const ChangrListScreen(),
+    imagrUrl: "assets/images/expenses_Icons-13.png",
+    title: 'Expenses',
+    reportpage: const ExpenseManagement(),
   ),
   TileGridModel(
     id: 9,
@@ -260,5 +298,11 @@ final List<TileGridModel> tileGridtlist = [
     imagrUrl: "assets/images/offer_Icons-18.png",
     title: 'Invoice',
     reportpage: const InvoiceScreen(),
+  ),
+  TileGridModel(
+    id: 18,
+    imagrUrl: "assets/images/activities_Icons-17.png",
+    title: 'Change List',
+    reportpage: const ChangrListScreen(),
   ),
 ];
