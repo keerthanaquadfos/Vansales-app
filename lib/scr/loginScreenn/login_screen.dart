@@ -148,7 +148,6 @@ class _LogInScreenState extends State<LogInScreen> {
                   SignInButtonTile(
                       tittle: "SIGN IN",
                       onPressed: () {
-                        print(_controllerUserName.text);
                         if (_controllerUserName.text == "Storekeeper") {
                           globals.isStoreKeeper = true;
                           Get.off(() => const HomeScreen());
@@ -156,9 +155,8 @@ class _LogInScreenState extends State<LogInScreen> {
                           globals.isSalesStaff = true;
                           Get.off(() => const HomeScreen());
                         } else {
-                          print("${_controllerUserName.text}  Storekeeper");
-                          print("${_controllerUserName.text} Salesstaff");
-                          showAlertPopup(context);
+                          Get.off(() => const HomeScreen());
+                          //  showAlertPopup(context);
                         }
                       }),
                   const Icon(

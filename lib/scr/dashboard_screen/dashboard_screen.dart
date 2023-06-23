@@ -231,8 +231,7 @@ final List<TileGridModel> tileGridtlist = [
     id: 6,
     imagrUrl: "assets/images/new_arrival_Icons-15.png",
     title: 'New Order',
-    reportpage:
-        const StoreKeeperOrderScreen(), //***/ sales Staff scr ***//const NewOrderScreen(),
+    reportpage: const NewOrderScreen(),
   ),
   TileGridModel(
     id: 7,

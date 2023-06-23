@@ -1,2 +1,2 @@
 bool isStoreKeeper = false;
-bool isSalesStaff = false;
+bool isSalesStaff = true;
