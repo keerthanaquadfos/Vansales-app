@@ -4,7 +4,9 @@ import 'package:van_sales_app/scr/dashboard_screen/add_shop/shop_management_scre
 import 'package:van_sales_app/scr/dashboard_screen/attendance/attendence_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/invoice_List/invoice_list_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/new_order/new_order_screen/new_order_screen.dart';
+import 'package:van_sales_app/scr/dashboard_screen/new_order/store_keeper/approved_orders/approved_order_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/new_order/store_keeper/confirmed_orders/confirmed_oredrs_screen.dart';
+import 'package:van_sales_app/scr/dashboard_screen/new_order/store_keeper/declined_orders/declined_orders_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/new_order/store_keeper/recent_orders/order_details/order_details_sceen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/reports/reports_screen.dart';
 import 'package:van_sales_app/scr/dashboard_screen/show_client/show_client.dart';
@@ -173,14 +175,13 @@ final List<TileGridModel> soreKeepertileGridtlist = [
     id: 3,
     imagrUrl: "assets/images/product_Icons-12.png",
     title: 'Approved Orders',
-    reportpage: const OrderDetailsScreen(),
+    reportpage: const ApprovedOrderScreen(),
   ),
   TileGridModel(
-    id: 4,
-    imagrUrl: "assets/images/schedules_Icons-09.png",
-    title: 'Declined Orders',
-    reportpage: const OrderDetailsScreen(),
-  ),
+      id: 4,
+      imagrUrl: "assets/images/schedules_Icons-09.png",
+      title: 'Declined Orders',
+      reportpage: const DeclinedOrderScreen()),
 ];
 
 final List<TileGridModel> tileGridtlist = [
